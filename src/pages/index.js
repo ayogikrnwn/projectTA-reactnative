@@ -16,6 +16,8 @@ import Login from './Login';
 import ProfilAdmin from './ProfilAdmin';
 import PetaIsolasi from './PetaIsolasi';
 import Informasi from './Informasi';
+import JenisGejala from './JenisGejala';
+import SaranObat from './SaranObat';
 
 export {
   Splash,
@@ -36,4 +38,6 @@ export {
   ProfilAdmin,
   PetaIsolasi,
   Informasi,
+  JenisGejala,
+  SaranObat,
 };

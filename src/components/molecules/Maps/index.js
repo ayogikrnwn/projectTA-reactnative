@@ -22,6 +22,9 @@ class Maps extends Component {
 const styles = StyleSheet.create({
     wrapper: {
 ...StyleSheet.absoluteFillObject
+    },
+    map: {
+        ...StyleSheet.absoluteFillObject
     }
 });
 export default Maps;

@@ -8,7 +8,13 @@ import {
   View,
 } from 'react-native';
 import users from '../../api/users';
-import {ICCovid, ICLiveChat, ICLogoCard, ICOption, ICPenyebaran} from '../../assets';
+import {
+  ICCovid,
+  ICLiveChat,
+  ICLogoCard,
+  ICOption,
+  ICPenyebaran,
+} from '../../assets';
 import {CardLapor, Gap, HeaderHome, RecFood, CardHome} from '../../components';
 import {Fire} from '../../config';
 import {fonts, getData} from '../../utils';
@@ -101,9 +107,26 @@ const Home = ({navigation}) => {
           <Text style={styles.recfood}>Informasi Covid-19</Text>
           <Text style={styles.descfood}>Dapatkan Informasi terbaru</Text>
           <Gap height={26} />
-          <CardHome img={ICCovid} title="Informasi Covid-19" desc="Jenis Gejala dan Saran" descs="Pengobatan" />
-          <CardHome img={ICPenyebaran} title="Peta Pasien Isolasi" desc="Pasien Isolasi Di Sekitar Anda" onPress={()=> navigation.navigate('PetaIsolasi')} />
-          <CardHome img={ICLiveChat} title="Konsultasi" desc="Konsultasi dengan Satgas" descs="Via Live Chat" />
+          <CardHome
+            img={ICCovid}
+            title="Informasi Covid-19"
+            desc="Jenis Gejala dan Saran"
+            descs="Pengobatan"
+            onPress={() => navigation.navigate('Informasi')}
+          />
+          <CardHome
+            img={ICPenyebaran}
+            title="Peta Pasien Isolasi"
+            desc="Pasien Isolasi Di Sekitar Anda"
+            onPress={() => navigation.navigate('PetaIsolasi')}
+          />
+          <CardHome
+            img={ICLiveChat}
+            title="Konsultasi"
+            desc="Konsultasi dengan Satgas"
+            descs="Via Live Chat"
+            onPress={() => navigation.navigate('ProfilAdmin')}
+          />
         </ScrollView>
       </View>
     </View>

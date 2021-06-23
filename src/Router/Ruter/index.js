@@ -19,6 +19,8 @@ import {
   ProfilAdmin,
   PetaIsolasi,
   Informasi,
+  JenisGejala,
+  SaranObat,
 } from '../../pages';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -124,6 +126,16 @@ const Ruter = () => {
        <Stack.Screen
         name="Informasi"
         component={Informasi}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="JenisGejala"
+        component={JenisGejala}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="SaranObat"
+        component={SaranObat}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

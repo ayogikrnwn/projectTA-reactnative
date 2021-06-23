@@ -15,10 +15,67 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import StarRating from 'react-native-star-rating';
 import {Fire} from '../../config';
-import {fonts} from '../../utils';
+import {fonts, getData} from '../../utils';
+import StarRatingBar from 'react-native-star-rating-view/StarRatingBar';
+import moment from 'moment';
 
 const InputGejala = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [status, setStatus] = useState("Ringan");
+  const [suhu, setSuhu] = useState("");
+  const [oksigen, setOksigen] = useState("");
+  const [kategori, setKategori] = useState([]);
+  const [user, setUser] = useState({});
+  const [score, setScore] = useState(1);
+
+
+  useEffect(() => {
+    getUser()
+    getKategori()
+  }, [navigation])
+
+  function simpanGejala()
+  {
+      const id = user.uid
+      const today = Date.now()
+      const date = moment(today).format('YYYYMMDD')
+      const datetime = moment(today).format('YYYYMMDDHHmm')
+      const inputDate = moment(today).format('DD-MM-YYYY HH:mm')
+
+      Fire.database().ref(`users/${id}/gejala/${date}/${datetime}`).set({
+        tgl : inputDate,
+        gejala : selectedLanguage,
+        suhu : suhu,
+        oksigen : oksigen,
+        status : status
+      }).then(res => {
+        console.log(res)
+        navigation.navigate('SuksesLapor')
+      })
+
+  }
+
+  function getUser()
+  {
+    getData('user').then(res => {
+      setUser(res)
+    })
+  }
+
+
+  function getKategori()
+  {
+    Fire.database().ref('kategori_gejala').once('value').then(res => {
+      if(res.val())
+      {
+        const kat = [];
+        Object.keys(res.val()).map(item => {
+          kat.push(res.val()[item])
+        })
+        setKategori(kat)
+      }
+    })
+  }
 
   return (
     <View style={styles.container}>
@@ -44,20 +101,39 @@ const InputGejala = ({navigation}) => {
             onValueChange={(itemValue, itemIndex) =>
               setSelectedLanguage(itemValue)
             }>
-            <Picker.Item label="Demam" value="demam" />
-            <Picker.Item label="Flu" value="Flu" />
+            {kategori.length > 0 ? kategori.map((item,key) => {
+              return (<Picker.Item label={item.category} value={item.category} />)
+            }) : <Picker.Item label="Tidak ada data" value="" />}
+
           </Picker>
           <Text style={styles.title}>Gejala yang dialami</Text>
 
-          <Star />
+          <StarRatingBar
+            readOnly={false}
+            continuous={true}
+            score={score}
+            scoreText={status}
+            onStarValueChanged={(score) => {
+              setScore(score)
+              if(score == 1)
+              {
+                setStatus('Ringan')
+              }else if(score > 1 && score <=3)
+              {
+                setStatus('Sedang')
+              }else{
+                setStatus("Berat")
+              }
+            }}
+          />
           <Gap height={15} />
-          <Input label="Suhu Badan (Opsional)" />
+          <Input onChangeText={text => setSuhu(text) } label="Suhu Badan (Opsional)" />
           <Gap height={15} />
-          <Input label="Tingkat Oksigen" />
+          <Input onChangeText={text => setOksigen(text)} label="Tingkat Oksigen" />
           <Gap height={15} />
           <Button
             title="Continue"
-            onPress={() => navigation.navigate('SuksesLapor')}
+            onPress={() => simpanGejala()}
           />
         </View>
       </View>

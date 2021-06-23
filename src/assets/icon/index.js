@@ -22,6 +22,7 @@ import ICCovid from './icovid.png';
 import ICPenyebaran from './icpenyebaran.png';
 import ICLiveChat from './ic_livechat.png';
 import ICAddGejala from './icaddgjl.png';
+import ICMedicine from './medicine.png';
 
 export {
   LOGO,
@@ -48,4 +49,5 @@ export {
   ICPenyebaran,
   ICLiveChat,
   ICAddGejala,
+  ICMedicine,
 };

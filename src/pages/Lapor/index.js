@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ICAddGejala} from '../../assets';
@@ -11,14 +12,42 @@ import {
 } from '../../components';
 
 import {Fire} from '../../config';
-import {fonts} from '../../utils';
+import {fonts, getData} from '../../utils';
 
 const Lapor = ({navigation}) => {
-  // const [categoryGejala, setCategoryGejala] = useState([]);
+  const [gejala, setGejala] = useState([]);
+  const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   getCategoryGejala();
-  // });
+  useEffect(() => {
+    getUser();
+  });
+
+  function getGejala() {
+    var today = Date.now();
+    var tgl = moment(today).format('YYYYMMDD');
+
+    Fire.database()
+      .ref(`users/${user.uid}/gejala/${tgl}`)
+      .once('value')
+      .then((res) => {
+        var gej = [];
+        if (res) {
+          const value = res.val();
+          Object.keys(value).map((item) => {
+            gej.push(value[item]);
+          });
+          setGejala(gej);
+        }
+      });
+  }
+
+  function getUser() {
+    getData('user').then((res) => {
+      setUser(res);
+    });
+    
+    getGejala();
+  }
 
   // const getCategoryGejala = () => {
   //   Fire.database()
@@ -51,9 +80,15 @@ const Lapor = ({navigation}) => {
         <Text style={styles.title}>Riwayat Gejala Sebelumnya</Text>
         <ScrollView>
           <View style={styles.riwayatgejala}>
-            <CardGejala />
-            <CardGejala />
-            <CardGejala />
+            {gejala.length > 0 ? (
+              gejala.map((item, key) => {
+                return <CardGejala item={item} key={key} />;
+              })
+            ) : (
+              <View>
+                <Text>Tidak Ada Riwayat Gejala</Text>
+              </View>
+            )}
           </View>
           <View style={styles.border}></View>
           <View style={styles.cardtmbh}>

@@ -4,18 +4,18 @@ import {ICCovid, ICLogoCard, LOGO} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 import {Gap} from '../../atoms';
 
-const CardGejala = ({onPress, img, title, descs, desc}) => {
+const CardGejala = ({onPress, item}) => {
   return (
       <>
      
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.text}>
         <Gap height={30} />
-        <Text style={styles.lapor}>21-06-2021</Text>
-        <Text style={styles.lapor}>Batuk </Text>
-        <Text style={styles.lapor}>RIngan</Text>
-        <Text style={styles.lapor}>36°C </Text>
-        <Text style={styles.lapor}>98% </Text>
+        <Text style={styles.laportgl}>{item.tgl}</Text>
+        <Text style={styles.lapor}>{item.gejala} </Text>
+        <Text style={styles.lapor}>{item.status}</Text>
+        <Text style={styles.lapor}>{item.suhu}°C </Text>
+        <Text style={styles.lapor}>{item.oksigen}% </Text>
       </View>
     </TouchableOpacity>
     </>
@@ -54,6 +54,14 @@ const styles = StyleSheet.create({
   dayisolate: {
     fontFamily: fonts.primary[800],
     fontSize: 14,
+  },
+  laportgl: {
+    fontFamily: fonts.primary[600],
+    fontSize: 10,
+    marginRight: 20,
+    paddingTop: 30,
+    justifyContent: 'space-between',
+    
   },
   lapor: {
     fontFamily: fonts.primary[600],

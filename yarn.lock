@@ -6936,6 +6936,13 @@
   "resolved" "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.18.1.tgz"
   "version" "2.18.1"
 
+"react-native-star-rating-view@^0.0.12":
+  "integrity" "sha512-scxagX5lhzjnm3D35dXtQYNkNrv9ugWWsPWyTFVw3IDYpDsfWW9fYtY7hy9Enl0oOpmPyHVbpGWMktZSivQcwg=="
+  "resolved" "https://registry.npmjs.org/react-native-star-rating-view/-/react-native-star-rating-view-0.0.12.tgz"
+  "version" "0.0.12"
+  dependencies:
+    "react-native-vector-icons" "^4.0.0"
+
 "react-native-star-rating@^1.1.0":
   "integrity" "sha512-ocOYx+BKUvfruvXm45MBbQZtpkVO3PQieBDepB0FaLuxE3vUtDTPzHqXuBes3iCM5oRi5umrnmMUMsM0mEq5ZA=="
   "resolved" "https://registry.npmjs.org/react-native-star-rating/-/react-native-star-rating-1.1.0.tgz"
@@ -6969,7 +6976,7 @@
   "resolved" "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
   "version" "1.0.5"
 
-"react-native-vector-icons@^4.5.0", "react-native-vector-icons@^4.6.0":
+"react-native-vector-icons@^4.0.0", "react-native-vector-icons@^4.5.0", "react-native-vector-icons@^4.6.0":
   "integrity" "sha512-rpfhfPiXCK2PX1nrNhdxSMrEGB/Gw/SvKoPM0G2wAkSoqynnes19K0VYI+Up7DqR1rFIpE4hP2erpT1tNx2tfg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-4.6.0.tgz"
   "version" "4.6.0"
@@ -6994,7 +7001,7 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-"react-native@*", "react-native@^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0", "react-native@>= 0.33", "react-native@>= 0.51", "react-native@>=0.42.0", "react-native@>=0.45.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@0.63.4":
+"react-native@*", "react-native@^0.60.6 || ^0.61.5 || ^0.62.2 || ^0.63.2 || ^0.64.0 || 1000.0.0", "react-native@>= 0.33", "react-native@>= 0.51", "react-native@>=0.30.0", "react-native@>=0.42.0", "react-native@>=0.45.0", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.62.0-rc.0 <0.64.0", "react-native@0.63.4":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.63.4.tgz"
   "version" "0.63.4"

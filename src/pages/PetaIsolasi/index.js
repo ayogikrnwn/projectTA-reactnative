@@ -4,7 +4,7 @@ import { Maps } from '../../components'
 
 const PetaIsolasi = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Peta Isolasi</Text>
             <Maps />
         </View>
@@ -13,4 +13,10 @@ const PetaIsolasi = () => {
 
 export default PetaIsolasi;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        width: 350,
+        height: 300,
+        
+    }
+})
