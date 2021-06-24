@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   RefreshControl,
   ScrollView,
@@ -6,26 +6,32 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import users from '../../api/users';
+} from "react-native";
+import users from "../../api/users";
 import {
   ICCovid,
   ICLiveChat,
   ICLogoCard,
   ICOption,
   ICPenyebaran,
-} from '../../assets';
-import {CardLapor, Gap, HeaderHome, RecFood, CardHome} from '../../components';
-import {Fire} from '../../config';
-import {fonts, getData} from '../../utils';
+} from "../../assets";
+import {
+  CardLapor,
+  Gap,
+  HeaderHome,
+  RecFood,
+  CardHome,
+} from "../../components";
+import { Fire } from "../../config";
+import { fonts, getData } from "../../utils";
 
-const Home = ({navigation}) => {
-  const [{uid}, setstate] = useState({
-    uid: '',
+const Home = ({ navigation }) => {
+  const [{ uid }, setstate] = useState({
+    uid: "",
   });
 
   // const [{isEnabled}, setEnabled] = useState({isEnabled : true})
-  const [{refreshing}, setRefreshing] = useState({refreshing: false});
+  const [{ refreshing }, setRefreshing] = useState({ refreshing: false });
 
   // useEffect(() => {
   //   getData('user').then((res) => {
@@ -47,12 +53,14 @@ const Home = ({navigation}) => {
   //   })
   // }, [])
 
-  var _onRefresh = () => {
+  const _onRefresh = () => {
     setRefreshing({
       refreshing: true,
     });
-    getData('user').then((res) => {
+
+    getData("user").then((res) => {
       setstate(res);
+      console.log({ resdong: res });
     });
 
     users.cekData(
@@ -76,9 +84,13 @@ const Home = ({navigation}) => {
         setRefreshing({
           refreshing: false,
         });
-      },
+      }
     );
   };
+
+  useEffect(() => {
+    _onRefresh();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -87,7 +99,8 @@ const Home = ({navigation}) => {
           <HeaderHome />
           <TouchableOpacity
             style={styles.option}
-            onPress={() => navigation.navigate('EditProfil')}>
+            onPress={() => navigation.navigate("EditProfil")}
+          >
             <ICOption />
           </TouchableOpacity>
         </View>
@@ -98,9 +111,10 @@ const Home = ({navigation}) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
           }
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <CardLapor
-            onPress={() => navigation.navigate('Laporan')}
+            onPress={() => navigation.navigate("Laporan")}
             type="enable"
           />
           <Gap height={19} />
@@ -112,20 +126,20 @@ const Home = ({navigation}) => {
             title="Informasi Covid-19"
             desc="Jenis Gejala dan Saran"
             descs="Pengobatan"
-            onPress={() => navigation.navigate('Informasi')}
+            onPress={() => navigation.navigate("Informasi")}
           />
           <CardHome
             img={ICPenyebaran}
             title="Peta Pasien Isolasi"
             desc="Pasien Isolasi Di Sekitar Anda"
-            onPress={() => navigation.navigate('PetaIsolasi')}
+            onPress={() => navigation.navigate("PetaIsolasi")}
           />
           <CardHome
             img={ICLiveChat}
             title="Konsultasi"
             desc="Konsultasi dengan Satgas"
             descs="Via Live Chat"
-            onPress={() => navigation.navigate('ProfilAdmin')}
+            onPress={() => navigation.navigate("ProfilAdmin")}
           />
         </ScrollView>
       </View>
@@ -156,11 +170,11 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   head: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   option: {
     flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
 });

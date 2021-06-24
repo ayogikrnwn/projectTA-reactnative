@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,17 +6,17 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-} from 'react-native';
-import {Header, Button, Link, Gap} from '../../components';
-import {colors, fonts, storeData} from '../../utils';
-import {showMessage} from 'react-native-flash-message';
-import {Fire} from '../../config';
-import DocumentPicker from 'react-native-document-picker';
-import RNFetchBlob from 'rn-fetch-blob';
+} from "react-native";
+import { Header, Button, Link, Gap } from "../../components";
+import { colors, fonts, storeData } from "../../utils";
+import { showMessage } from "react-native-flash-message";
+import { Fire } from "../../config";
+import DocumentPicker from "react-native-document-picker";
+import RNFetchBlob from "rn-fetch-blob";
 
-const UploadDocument = ({navigation, route}) => {
-  const {fullName, uid} = route.params;
-  const [singleFile, setSingleFile] = useState('');
+const UploadDocument = ({ navigation, route }) => {
+  const { fullName, uid } = route.params;
+  const [singleFile, setSingleFile] = useState("");
 
   const pickDocument = async () => {
     try {
@@ -31,7 +31,7 @@ const UploadDocument = ({navigation, route}) => {
       });
       const path = await normalizePath(file.uri);
       // const result = await RNFetchBlob.fs.readFile(path, 'base64');
-      const result = await RNFetchBlob.fs.readFile(path, 'base64');
+      const result = await RNFetchBlob.fs.readFile(path, "base64");
       uploadFileToFirebaseStorage(result, file);
 
       console.log(result);
@@ -47,18 +47,18 @@ const UploadDocument = ({navigation, route}) => {
       //Handling any exception (If any)
       if (DocumentPicker.isCancel(err)) {
         //If user canceled the document selection
-        alert('Canceled from single doc picker');
+        alert("Canceled from single doc picker");
       } else {
         //For Unknown Error
-        alert('Unknown Error: ' + JSON.stringify(err));
+        alert("Unknown Error: " + JSON.stringify(err));
         throw err;
       }
     }
   };
 
   async function normalizePath(path) {
-    if (Platform.OS === 'android') {
-      const filePrefix = 'file://';
+    if (Platform.OS === "android") {
+      const filePrefix = "file://";
       if (path.startsWith(filePrefix)) {
         path = path.substring(filePrefix.length);
         try {
@@ -72,21 +72,21 @@ const UploadDocument = ({navigation, route}) => {
   async function uploadFileToFirebaseStorage(result, file) {
     const uploadTask = Fire.storage()
       .ref(`allFiles/${file.name}`)
-      .put(result, 'base64', {contentType: file.type});
+      .put(result, "base64", { contentType: file.type });
 
     uploadTask.on(
-      'state_changed',
+      "state_changed",
       function (snapshot) {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
+        console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case Fire.storage.TaskState.PAUSED: // or 'paused'
-            console.log('Upload is paused');
+            console.log("Upload is paused");
             break;
           case Fire.storage.TaskState.RUNNING: // or 'running'
-            console.log('Upload is running');
+            console.log("Upload is running");
             break;
         }
       },
@@ -98,16 +98,22 @@ const UploadDocument = ({navigation, route}) => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-          Fire.database().ref('users/'+uid).once('value').then(res => {
-            Fire.database().ref('/users/'+uid).set({
-              ...res.val(),
-              urlDocument : downloadURL
-            }).then(hasil => {
-              console.log(hasil)
-            })
-          })
+          Fire.database()
+            .ref("users/" + uid)
+            .once("value")
+            .then((res) => {
+              Fire.database()
+                .ref("/users/" + uid)
+                .set({
+                  ...res.val(),
+                  urlDocument: downloadURL,
+                })
+                .then((hasil) => {
+                  console.log(hasil);
+                });
+            });
         });
-      },
+      }
     );
   }
 
@@ -141,7 +147,7 @@ const UploadDocument = ({navigation, route}) => {
 
       <Button
         title="Upload and Continue"
-        onPress={() => navigation.navigate('MainApp')}
+        onPress={() => navigation.replace("MainApp")}
       />
 
       <Gap height={40} />
@@ -152,5 +158,5 @@ const UploadDocument = ({navigation, route}) => {
 export default UploadDocument;
 
 const styles = StyleSheet.create({
-  page: {flex: 1, backgroundColor: 'white'},
+  page: { flex: 1, backgroundColor: "white" },
 });

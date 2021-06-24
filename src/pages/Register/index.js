@@ -46,7 +46,7 @@ const Register = ({ navigation }) => {
             .set(data);
 
           storeData("user", data);
-          navigation.navigate("UploadDocument", data);
+          navigation.replace("UploadDocument", data);
           // console.log("register success :", success);
           setForm("reset");
         })
