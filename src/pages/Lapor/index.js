@@ -16,23 +16,20 @@ import { fonts, getData } from "../../utils";
 
 const Lapor = ({ navigation }) => {
   const [gejala, setGejala] = useState([]);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
 
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  function getGejala() {
+  function getGejala(profile) {
     var today = Date.now();
     var tgl = moment(today).format("YYYYMMDD");
 
     Fire.database()
-      .ref(`users/${user.uid}/gejala/${tgl}`)
+      .ref(`users/${profile.uid}/gejala/${tgl}`)
       .once("value")
       .then((res) => {
-        var gej = [];
+        let gej = [];
         if (res) {
           const value = res.val();
+          console.log(value);
           if (value) {
             Object.keys(value).map((item) => {
               gej.push(value[item]);
@@ -45,11 +42,14 @@ const Lapor = ({ navigation }) => {
 
   function getUser() {
     getData("user").then((res) => {
-      setUser(res);
+      getGejala(res);
+      // setUser(res);
     });
-
-    getGejala();
   }
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   // const getCategoryGejala = () => {
   //   Fire.database()
