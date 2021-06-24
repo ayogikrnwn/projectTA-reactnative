@@ -23,6 +23,7 @@ const Register = ({ navigation }) => {
   const [location, setLocation] = useState({ longitude: 0, latitude: 0 });
 
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState("Loading..");
 
   const onContinue = () => {
     setLoading(true);
@@ -78,9 +79,13 @@ const Register = ({ navigation }) => {
     }
     setLocation(coordinate);
     setForm("isolasi", address);
+    setLoading(false);
+    setLoadingText("Loading..");
   };
 
   const getCurrentLocation = () => {
+    setLoading(true);
+    setLoadingText("Mendapatkan lokasi Anda");
     GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 15000,
@@ -142,7 +147,7 @@ const Register = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-      {loading && <Loading />}
+      {loading && <Loading title={loadingText} />}
     </>
   );
 };

@@ -1,27 +1,27 @@
-import React from 'react'
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {colors, fonts} from '../../../utils';
+import React from "react";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { colors, fonts } from "../../../utils";
 
-const Loading = () => {
+const Loading = ({ title = "Loading.." }) => {
   return (
     <View style={styles.wrapper}>
       <ActivityIndicator size="large" color={colors.primary} />
-      <Text style={styles.text}>Loading..</Text>
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
-}
+};
 
 export default Loading;
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.loadingBackground,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   text: {
     fontSize: 18,
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     marginTop: 16,
   },
-})
+});
