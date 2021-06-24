@@ -1,17 +1,17 @@
-import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ICEditProf, ICKonfirm, ICTentang} from '../../../assets';
-import {colors, fonts} from '../../../utils';
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ICEditProf, ICKonfirm, ICTentang } from "../../../assets";
+import { colors, fonts } from "../../../utils";
 
-const ListEdProf = ({profile, name, desc, type, onPress, icon}) => {
+const ListEdProf = ({ profile, name, desc, type, onPress, icon }) => {
   const Icon = () => {
-    if (icon === 'edit-profile') {
+    if (icon === "edit-profile") {
       return <ICEditProf />;
     }
-    if (icon === 'tentang') {
+    if (icon === "tentang") {
       return <ICTentang />;
     }
-    if (icon === 'konfirmasi') {
+    if (icon === "konfirmasi") {
       return <ICKonfirm />;
     }
     return <ICEditProf />;
@@ -33,15 +33,15 @@ export default ListEdProf;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  content: {flex: 1, marginLeft: 16},
-  avatar: {width: 46, height: 46, borderRadius: 46 / 2, marginRight: 12},
+  content: { flex: 1, marginLeft: 16 },
+  avatar: { width: 46, height: 46, borderRadius: 46 / 2, marginRight: 12 },
   name: {
     fontSize: 16,
     fontFamily: fonts.primary[400],

@@ -1,7 +1,7 @@
-import moment from 'moment';
-import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {ICAddGejala} from '../../assets';
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ICAddGejala } from "../../assets";
 import {
   CardGejala,
   CardHome,
@@ -9,43 +9,45 @@ import {
   CatLapor,
   Gap,
   Header,
-} from '../../components';
+} from "../../components";
 
-import {Fire} from '../../config';
-import {fonts, getData} from '../../utils';
+import { Fire } from "../../config";
+import { fonts, getData } from "../../utils";
 
-const Lapor = ({navigation}) => {
+const Lapor = ({ navigation }) => {
   const [gejala, setGejala] = useState([]);
   const [user, setUser] = useState({});
 
   useEffect(() => {
     getUser();
-  });
+  }, []);
 
   function getGejala() {
     var today = Date.now();
-    var tgl = moment(today).format('YYYYMMDD');
+    var tgl = moment(today).format("YYYYMMDD");
 
     Fire.database()
       .ref(`users/${user.uid}/gejala/${tgl}`)
-      .once('value')
+      .once("value")
       .then((res) => {
         var gej = [];
         if (res) {
           const value = res.val();
-          Object.keys(value).map((item) => {
-            gej.push(value[item]);
-          });
-          setGejala(gej);
+          if (value) {
+            Object.keys(value).map((item) => {
+              gej.push(value[item]);
+            });
+            setGejala(gej);
+          }
         }
       });
   }
 
   function getUser() {
-    getData('user').then((res) => {
+    getData("user").then((res) => {
       setUser(res);
     });
-    
+
     getGejala();
   }
 
@@ -96,7 +98,7 @@ const Lapor = ({navigation}) => {
               img={ICAddGejala}
               title="Tambah Gejala"
               desc="Silahkan Tambah Gejala"
-              onPress={() => navigation.navigate('InputGejala')}
+              onPress={() => navigation.navigate("InputGejala")}
             />
           </View>
         </ScrollView>
@@ -124,14 +126,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   catlapor: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   wrapperScroll: {},
   lc: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   head: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   riwayatgejala: {
     paddingTop: 10,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
   border: {
     marginTop: 12,
     borderWidth: 1,
-    borderColor: '#C2C2C2',
+    borderColor: "#C2C2C2",
     width: 309,
   },
   cardtmbh: {
